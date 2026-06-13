@@ -1,0 +1,644 @@
+<div class="card">
+  <div class="card-body">
+    <p class="text-center alert alert-success">JOB APPLICATION FORM</p>
+    <form [formGroup]="jobApplicationForm" (ngSubmit)="onJobFormSubmit()">
+      <div class="card mb-3" style="background-color: #f8faff">
+        <div class="card-body">
+          <div class="row">
+            <h3 style="color: #4f46e5">1.Personal Information</h3>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="fullName">Full Name*</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="fullName"
+                  id="fullName"
+                  placeholder="Enter your full name"
+                />
+                <strong
+                  *ngIf="
+                    f['fullName'].touched && f['fullName'].hasError('required')
+                  "
+                  class="text-danger"
+                >
+                  Full name is required field..!
+                </strong>
+                <strong
+                  *ngIf="
+                    f['fullName'].dirty && f['fullName'].hasError('pattern')
+                  "
+                  class="text-danger"
+                >
+                  Enter valid name ..dont use special symbol and digits..!
+                </strong>
+                <strong
+                  *ngIf="
+                    f['fullName'].dirty && f['fullName'].hasError('minlength')
+                  "
+                  class="text-danger"
+                >
+                  Full name should have minimun
+                  {{ f["fullName"].errors?.["minlength"].requiredLength }}
+                  and actual length is
+                  {{ f["fullName"].errors?.["minlength"].actualLength }}.
+                </strong>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="email">Email*</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="email"
+                  id="email"
+                  placeholder="Enter valid email"
+                />
+                <strong
+                  *ngIf="f['email'].touched && f['email'].hasError('required')"
+                  class="text-danger"
+                >
+                  Email is required field..!
+                </strong>
+                <strong
+                  *ngIf="f['email'].dirty && f['email'].hasError('pattern')"
+                  class="text-danger"
+                >
+                  Enter valid email(Ex : ronak@gmail.com)
+                </strong>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="mobileNumber">Mobile Number*</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="mobileNumber"
+                  id="mobileNumber"
+                  placeholder="Enter your mobile number"
+                />
+                <strong
+                  *ngIf="
+                    f['mobileNumber'].touched &&
+                    f['mobileNumber'].hasError('required')
+                  "
+                  class="text-danger"
+                >
+                  Mobile number is madatory field..!
+                </strong>
+                <strong
+                  *ngIf="
+                    f['mobileNumber'].dirty &&
+                    f['mobileNumber'].hasError('pattern')
+                  "
+                  class="text-danger"
+                >
+                  Enter Valid number!!
+                </strong>
+                <strong
+                  *ngIf="
+                    f['mobileNumber'].dirty &&
+                    f['mobileNumber'].hasError('minlength')
+                  "
+                  class="text-danger"
+                >
+                  phone number should have minimum
+                  {{ f["mobileNumber"].errors?.["minlength"].requiredLength }}
+                  length.
+                </strong>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="dateOfBirth">Date of Birth*</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  formControlName="dateOfBirth"
+                  id="dateOfBirth"
+                />
+                <strong
+                  *ngIf="
+                    f['dateOfBirth'].touched &&
+                    f['dateOfBirth'].hasError('required')
+                  "
+                  class="text-danger"
+                >
+                  Birth date is necessary field..!
+                </strong>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <h4>Gender*</h4>
+                <label [for]="gender" *ngFor="let gender of gendersArr">
+                  <input
+                    formControlName="gender"
+                    type="radio"
+                    [id]="gender"
+                    [value]="gender"
+                  />
+                  {{ gender }}
+                </label>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="currentLocation">Current Location*</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="currentLocation"
+                  formControlName="currentLocation"
+                  placeholder="Enter your current location"
+                />
+                <strong
+                  *ngIf="
+                    f['currentLocation'].touched &&
+                    f['currentLocation'].hasError('required')
+                  "
+                  class="text-danger"
+                >
+                  Enter your Current Loaction it is madatory..!
+                </strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-3" style="background-color: #f5f9ff">
+        <div class="card-body">
+          <div class="row">
+            <h3 style="color: #2563eb">2.Job Preferences</h3>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="desireJobRole">Desired Job Role*</label>
+                <select class="form-control" formControlName="desireJobRole">
+                  <option [value]="job" *ngFor="let job of desiredJobRolesArr">
+                    {{ job }}
+                  </option>
+                </select>
+                <strong
+                  *ngIf="
+                    f['desireJobRole'].touched &&
+                    f['desireJobRole'].hasError('required')
+                  "
+                  class="text-danger"
+                >
+                  Select Desire Job Role..!
+                </strong>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="preferredLocation">Preferred Location*</label>
+                <select
+                  name="preferredLocation"
+                  id="preferredLocation"
+                  formControlName="preferredLocation"
+                  class="form-control"
+                >
+                  <option
+                    [value]="location"
+                    *ngFor="let location of preferredLocationsArr"
+                  >
+                    {{ location }}
+                  </option>
+                </select>
+                <strong
+                  class="text-danger"
+                  *ngIf="
+                    f['preferredLocation'].touched &&
+                    f['preferredLocation'].hasError('required')
+                  "
+                  >please select your Preferred Location..!</strong
+                >
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="employementType">Employement Type*</label>
+                <select
+                  name="employementType"
+                  id="employementType"
+                  formControlName="employementType"
+                  class="form-control"
+                >
+                  <option
+                    [value]="employementType"
+                    *ngFor="let employementType of employmentTypesArr"
+                  >
+                    {{ employementType }}
+                  </option>
+                </select>
+                <strong
+                  *ngIf="
+                    f['employementType'].touched &&
+                    f['employementType'].hasError('required')
+                  "
+                  class="text-danger"
+                >
+                  Select Employemnt type..!
+                </strong>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="expectedSalary">Expected Salary*</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="expectedSalary"
+                  placeholder="Enter expected salary"
+                />
+                <strong
+                  *ngIf="
+                    f['expectedSalary'].touched &&
+                    f['expectedSalary'].hasError('required')
+                  "
+                  class="text-danger"
+                >
+                  Enter your Expeted Salary..!
+                </strong>
+                <strong
+                  *ngIf="
+                    f['expectedSalary'].dirty &&
+                    f['expectedSalary'].hasError('pattern')
+                  "
+                  class="text-danger"
+                >
+                  Enter Valid Salary..!
+                </strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-3" style="background-color: #f4fff7">
+        <div class="card-body">
+          <div class="row d-flex justify-content-between mb-3">
+            <h3 style="color: #16a34a">3.Education Details</h3>
+            <button
+              type="button"
+              mat-raised-button
+              color="primary"
+              [disabled]="educationDetailsArr.invalid"
+              (click)="onAddQualification()"
+              *ngIf="educationDetailsArr.length < 3; else educationLimitExid"
+            >
+              <mat-icon>add</mat-icon>
+              Add Qualification
+            </button>
+          </div>
+          <div formArrayName="educationDetails">
+            <div
+              class="row"
+              *ngFor="
+                let deuction of educationDetailsArr.controls;
+                let i = index
+              "
+              [formGroupName]="i"
+            >
+              <div class="col">
+                <div class="form-group">
+                  <label for="degree">Degree*</label>
+                  <select
+                    type="text"
+                    class="form-control"
+                    formControlName="degree"
+                  >
+                    <option [value]="degree" *ngFor="let degree of degreesArr">
+                      {{ degree }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="degree">Collage*</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="collage"
+                    placeholder="Collage name"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="degree">Passing Year*</label>
+                  <select
+                    type="number"
+                    class="form-control"
+                    formControlName="passingYear"
+                  >
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="degree">Percentage*</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    formControlName="perecntage"
+                    placeholder="percentage"
+                  />
+                </div>
+              </div>
+              <div class="col d-flex flex-column">
+                <label for="remove" style="opacity: 0">Remove</label>
+                <button
+                  (click)="onRemoveQualification(i)"
+                  class="mb-1"
+                  mat-raised-button
+                  color="warn"
+                  *ngIf="i > 0"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+            <ng-template #educationLimitExid>
+              <p class="alert alert-danger text-center">
+                You can add only three Qualifications details..!
+              </p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-3" style="background-color: #fffdf5">
+        <div class="card-body">
+          <div class="row d-flex justify-content-between">
+            <h3 style="color: #f59e0b">4.Skills</h3>
+            <button
+              (click)="onAddskills()"
+              mat-raised-button
+              color="primary"
+              [disabled]="onSkillsArr.invalid"
+              *ngIf="onSkillsArr.length < 5; else addSkillLimitExid"
+            >
+              <mat-icon>add</mat-icon>Add skill
+            </button>
+          </div>
+
+          <div formArrayName="skills">
+            <div
+              class="row"
+              *ngFor="let skill of onSkillsArr.controls; let i = index"
+              [formGroupName]="i"
+            >
+              <div class="col">
+                <div class="form-group">
+                  <label for="skill">Skill*</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="skillName"
+                    placeholder="Enter skill"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="skill">Experience(years)*</label>
+                  <select class="form-control" formControlName="experience">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col d-flex flex-column">
+                <label for="remove">Action</label>
+                <button
+                  class="mb-1"
+                  mat-raised-button
+                  color="warn"
+                  (click)="onRemoveskills(i)"
+                  *ngIf="i > 0"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+            <ng-template #addSkillLimitExid>
+              <p class="alert alert-info">You can add only 5 skills..!</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-3" style="background-color: #faf7ff">
+        <div class="card-body">
+          <div class="row d-flex justify-content-between">
+            <h3 style="color: #7c3aed">5.Projects*</h3>
+            <button
+              mat-raised-button
+              color="primary"
+              [disabled]="projectsArr.invalid"
+              (click)="onAddProjects()"
+              *ngIf="projectsArr.length < 3; else addProjectLimitExid"
+            >
+              <mat-icon>add</mat-icon>Add Project
+            </button>
+          </div>
+          <div formArrayName="projects">
+            <div
+              class="row"
+              *ngFor="let project of projectsArr.controls; let i = index"
+              [formGroupName]="i"
+            >
+              <div class="col">
+                <div class="form-group">
+                  <label for="projectName">Project Name*</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="projectName"
+                    placeholder="Enter project name"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="technologiesUsed">Technologies Used*</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="technologiesUsed"
+                    placeholder="Used technologies"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="description">Description*</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="description"
+                    placeholder="Projects details"
+                  />
+                </div>
+              </div>
+              <div class="col d-flex flex-column">
+                <label for="description" style="opacity: 0">Remove</label>
+                <button
+                  mat-raised-button
+                  color="warn"
+                  *ngIf="i > 0"
+                  (click)="onRemoveProject(i)"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+          <ng-template #addProjectLimitExid>
+            <p class="alert alert-danger">Only 3 Projects can add..!</p>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-5">
+          <div class="card mb-3" style="background-color: #f5fbff">
+            <div class="card-body" formArrayName="certifications">
+              <div class="row">
+                <h3 style="color: #0284c7">6.Certifications*</h3>
+              </div>
+              <div
+                *ngFor="
+                  let certification of certificationsArr.controls;
+                  let i = index
+                "
+                [formGroupName]="i"
+              >
+                <div class="row">
+                  <label for="certificateName">Certification Name*</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="certificateName"
+                    placeholder="Enter certification name"
+                  />
+                </div>
+                <div class="row">
+                  <label for="issuingCertificate">Issuing Organization*</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="issuingCertificate"
+                    placeholder="Enter issued organization"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="card" style="background-color: #fff5fa">
+            <div class="card-body" formArrayName="links">
+              <div
+                *ngFor="let link of linksArr.controls; let i = index"
+                [formGroupName]="i"
+              >
+                <div class="row">
+                  <h3 style="color: #db2777">7.Resume & Links*</h3>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="githubUrl">Github Link*</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="githubUrl"
+                      formControlName="githubUrl"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label for="linkdinUrl">Linkdin Url*</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="linkdinUrl"
+                      formControlName="linkdinUrl"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="portfolioLink">Portfilio Url*</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="portfolioLink"
+                      formControlName="portfolioLink"
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label for="aboutYourself">About yourself*</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="aboutYourself"
+                      formControlName="aboutYourself"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-3" style="background-color: #f8fafc">
+        <div class="card-body">
+          <div class="row">
+            <h3 style="color: #475569">8.Declaration</h3>
+          </div>
+          <div class="row">
+            <div class="form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                formControlName="declaration"
+                [disabled]="jobApplicationForm.invalid"
+              />
+              <label for="" class="form-check-label"
+                >I hearby declare that the above information is true and correct
+                to the best of my knowlage.
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-block btn-primary mt-3" type="submit">
+        Apply
+      </button>
+      <button class="btn btn-block btn-primary mt-3" type="button" (click)="onEditForm()">
+        Patch
+      </button>
+    </form>
+  </div>
+</div>
