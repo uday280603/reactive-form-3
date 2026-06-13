@@ -13,74 +13,84 @@ export class ReactiveFormComponent implements OnInit {
   gendersArr = ['Male', 'Female', 'Others'];
   defultDender = 'Male';
   userDetails = {
-  fullName: 'Ronak',
-  email: 'ronakindrawar123@gmail.com',
-  mobileNumber: '7875990589',
-  dateOfBirth: '2026-06-18',
-  gender: 'Male',
-  currentLocation: 'Udgir',
-  desireJobRole: 'Angular Developer',
-  preferredLocation: 'Pune',
-  employementType: 'Full Time',
-  expectedSalary: '1000000',
-  declaration: true,
+    fullName: 'Ronak',
+    email: 'ronakindrawar123@gmail.com',
+    mobileNumber: '7875990589',
+    dateOfBirth: '2026-06-18',
+    gender: 'Male',
+    currentLocation: 'Udgir',
+    desireJobRole: 'Angular Developer',
+    preferredLocation: 'Pune',
+    employementType: 'Full Time',
+    expectedSalary: '1000000',
+    declaration: true,
 
-  educationDetails: [
-    {
-      degree: 'B.Sc',
-      collage: 'Deogiri College',
-      passingYear: '2022',
-      perecntage: 85
-    },
-    {
-      degree: 'MCA',
-      collage: 'MIT College Pune',
-      passingYear: '2025',
-      perecntage: 88
-    }
-  ],
+    educationDetails: [
+      {
+        degree: 'B.Sc',
+        collage: 'Deogiri College',
+        passingYear: '2022',
+        perecntage: 85,
+      },
+      {
+        degree: 'MCA',
+        collage: 'MIT College Pune',
+        passingYear: '2025',
+        perecntage: 88,
+      },
+    ],
 
-  skills: [
-    {
-      skillName: 'Angular'
-    },
-    {
-      skillName: 'TypeScript'
-    },
-    {
-      skillName: 'Java'
-    },
-    {
-      skillName: 'Spring Boot'
-    }
-  ],
+    skills: [
+      {
+        skillName: 'Angular',
+        experience: 2,
+      },
+      {
+        skillName: 'TypeScript',
+        experience: 1,
+      },
+      {
+        skillName: 'Java',
+        experience: 3,
+      },
+      {
+        skillName: 'Spring Boot',
+        experience: 2,
+      },
+    ],
 
-  certifications: [
-    {
-      certificateName: 'Java Full Stack Developer',
-      issuingCertificate: 'Code with Success'
-    }
-  ],
+    certifications: [
+      {
+        certificateName: 'Java Full Stack Developer',
+        issuingCertificate: 'Code with Success',
+      },
+    ],
 
-  projects: [
-    {
-      projectName: 'Employee Management System',
-      technologiesUsed: 'Angular, Spring Boot, MySQL',
-      projectDescription:
-        'Developed employee management application with CRUD operations.'
-    }
-  ],
+    projects: [
+      {
+        projectName: 'Employee Management System',
+        technologiesUsed: 'Angular, Spring Boot, MySQL',
+        projectDescription:
+          'Developed employee management application with CRUD operations.',
+      },
+      {
+        projectName: 'Smart Contact Manager',
+        technologiesUsed: 'Angular, Spring Boot, MySQL',
+        projectDescription:
+          'Developed to manage the contact with images.',
+      }
+    ],
 
-  links: [
-    {
-      githubUrl: 'https://github.com/ronakdev',
-      linkdinUrl: 'https://linkedin.com/in/ronakdev',
-      portfolioLink: 'https://ronak-portfolio.com',
-      aboutYourself:
-        'Passionate Full Stack Developer with Angular and Spring Boot experience.'
-    }
-  ]
-}
+    links: [
+      {
+        githubUrl: 'https://github.com/ronakdev',
+        linkdinUrl: 'https://linkedin.com/in/ronakdev',
+        portfolioLink: 'https://ronak-portfolio.com',
+        aboutYourself:
+          'Passionate Full Stack Developer with Angular and Spring Boot experience.',
+      },
+    ],
+  };
   desiredJobRolesArr: string[] = [
     'Java Developer',
     'Frontend Developer',
@@ -157,7 +167,7 @@ export class ReactiveFormComponent implements OnInit {
     'Diploma',
   ];
 
-  constructor(private _snackbar : SnackbarService) {}
+  constructor(private _snackbar: SnackbarService) {}
 
   ngOnInit(): void {
     this.createJobApplicationform();
@@ -167,13 +177,10 @@ export class ReactiveFormComponent implements OnInit {
     this.onAddCertification();
     this.onAddLinks();
     this.onDeclerations();
-
-
-  
   }
 
-  onDeclerations(){
-      this.jobApplicationForm.statusChanges.subscribe((status) => {
+  onDeclerations() {
+    this.jobApplicationForm.statusChanges.subscribe((status) => {
       if (status === 'VALID') {
         this.f['declaration'].enable({
           emitEvent: false,
@@ -189,15 +196,13 @@ export class ReactiveFormComponent implements OnInit {
   onJobFormSubmit() {
     console.log(this.jobApplicationForm);
     console.log(this.jobApplicationForm.getRawValue());
-    if(this.jobApplicationForm.invalid){
-      this.jobApplicationForm.markAllAsTouched()
-      return
-    }
-    else{
+    if (this.jobApplicationForm.invalid) {
+      this.jobApplicationForm.markAllAsTouched();
+      return;
+    } else {
       this._snackbar.openSnackbar(`APPLIED FOR JOB..!`);
-      this.jobApplicationForm.reset()
+      this.jobApplicationForm.reset();
     }
-    
   }
 
   createJobApplicationform() {
@@ -314,7 +319,35 @@ export class ReactiveFormComponent implements OnInit {
     this.projectsArr.removeAt(i);
   }
 
-  onEditForm(){
-    this.jobApplicationForm.patchValue(this.userDetails)
+  onEditForm() {
+    this.jobApplicationForm.patchValue(this.userDetails);
+    this.educationDetailsArr.clear();
+    this.userDetails.educationDetails.forEach((e) => {
+      let eductionDetailsGroup = new FormGroup({
+        degree: new FormControl(e.degree, [Validators.required]),
+        collage: new FormControl(e.collage, [Validators.required]),
+        passingYear: new FormControl(e.passingYear, [Validators.required]),
+        perecntage: new FormControl(e.perecntage, [Validators.required]),
+      });
+      this.educationDetailsArr.push(eductionDetailsGroup);
+    });
+    this.onSkillsArr.clear();
+    this.userDetails.skills.forEach((s) => {
+      let skillGroup = new FormGroup({
+        skillName: new FormControl(s.skillName, [Validators.required]),
+        experience: new FormControl(s.experience, [Validators.required]),
+      });
+      this.onSkillsArr.push(skillGroup);
+    });
+    this.projectsArr.clear()
+    this.userDetails.projects.forEach(p =>{
+      let projectGroup = new FormGroup({
+          projectName: new FormControl(p.projectName, [Validators.required]),
+      technologiesUsed: new FormControl(p.technologiesUsed, [Validators.required]),
+      description: new FormControl(p.projectDescription, [Validators.required]),
+
+      });
+      this.projectsArr.push(projectGroup)
+    })
   }
 }
