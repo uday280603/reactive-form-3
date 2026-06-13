@@ -5,7 +5,7 @@
       <div class="card mb-3" style="background-color: #f8faff">
         <div class="card-body">
           <div class="row">
-            <h3 style="color: #4f46e5">1.Personal Information</h3>
+            <h3 style="color: #4f46e5"><i class="fa-regular fa-user mr-1"></i>1.Personal Information</h3>
           </div>
 
           <div class="row">
@@ -177,7 +177,7 @@
       <div class="card mb-3" style="background-color: #f5f9ff">
         <div class="card-body">
           <div class="row">
-            <h3 style="color: #2563eb">2.Job Preferences</h3>
+            <h3 style="color: #2563eb"><i class="fa-solid fa-briefcase mr-1"></i>2.Job Preferences</h3>
           </div>
           <div class="row">
             <div class="col-md-3">
@@ -287,11 +287,11 @@
       <div class="card mb-3" style="background-color: #f4fff7">
         <div class="card-body">
           <div class="row d-flex justify-content-between mb-3">
-            <h3 style="color: #16a34a">3.Education Details</h3>
+            <h3 style="color: #16a34a"><i class="fa-solid fa-graduation-cap mr-1"></i>3.Education Details</h3>
             <button
               type="button"
               mat-raised-button
-              color="primary"
+              style="background-color: #16a34a ; color: white;"
               [disabled]="educationDetailsArr.invalid"
               (click)="onAddQualification()"
               *ngIf="educationDetailsArr.length < 3; else educationLimitExid"
@@ -390,11 +390,12 @@
       <div class="card mb-3" style="background-color: #fffdf5">
         <div class="card-body">
           <div class="row d-flex justify-content-between">
-            <h3 style="color: #f59e0b">4.Skills</h3>
+            <h3 style="color: #f59e0b"><i class="fa-regular fa-star mr-1"></i>4.Skills</h3>
             <button
               (click)="onAddskills()"
               mat-raised-button
-              color="primary"
+              type="button"
+              style="background-color: #f59e0b; color: white;"
               [disabled]="onSkillsArr.invalid"
               *ngIf="onSkillsArr.length < 5; else addSkillLimitExid"
             >
@@ -453,10 +454,11 @@
       <div class="card mb-3" style="background-color: #faf7ff">
         <div class="card-body">
           <div class="row d-flex justify-content-between">
-            <h3 style="color: #7c3aed">5.Projects*</h3>
+            <h3 style="color: #7c3aed"><i class="fa-solid fa-laptop-code mr-1"></i>5.Projects*</h3>
             <button
+            style="background-color: #7c3aed; color: white;"
               mat-raised-button
-              color="primary"
+             type="button"
               [disabled]="projectsArr.invalid"
               (click)="onAddProjects()"
               *ngIf="projectsArr.length < 3; else addProjectLimitExid"
@@ -526,7 +528,7 @@
           <div class="card mb-3" style="background-color: #f5fbff">
             <div class="card-body" formArrayName="certifications">
               <div class="row">
-                <h3 style="color: #0284c7">6.Certifications*</h3>
+                <h3 style="color: #0284c7"><i class="fa-solid fa-trophy mr-1"></i>6.Certifications*</h3>
               </div>
               <div
                 *ngFor="
@@ -565,7 +567,7 @@
                 [formGroupName]="i"
               >
                 <div class="row">
-                  <h3 style="color: #db2777">7.Resume & Links*</h3>
+                  <h3 style="color: #db2777"><i class="fa-solid fa-link mr-1"></i>7.Resume & Links*</h3>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
